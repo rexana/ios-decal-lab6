@@ -18,20 +18,65 @@ class LoginViewController: UIViewController {
     }
 
     // TODO: instantiate the views needed for your project
+    let label = UILabel(frame: CGRect(x: 0, y: 140, width: UIScreen.main.bounds.width, height: 100))
+    let littleView = UIView(frame: CGRect(x: 0, y: 250, width: UIScreen.main.bounds.width - 32, height: 16 * 4 + 110))
+    let usernameField = UITextField(frame: CGRect(x: 16, y: 16, width: UIScreen.main.bounds.width - 64, height: 30))
+    let passField = UITextField(frame: CGRect(x: 16, y: 16 * 2 + 30, width: UIScreen.main.bounds.width - 64, height: 30))
+    let loginButton = UIButton(frame: CGRect(x: 0, y: 16 * 3 + 2 * 30, width: UIScreen.main.bounds.width/3, height: 50))
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Constants.backgroundColor
+    
+        // TODO: layout your views using frames or AutoLayout
+
+        label.text = "Login View\nController"
+        label.center.x = view.center.x
+        label.textColor = UIColor.white
+        label.font = UIFont.systemFont(ofSize: 40)
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        
+        littleView.backgroundColor = UIColor.white
+        littleView.center = view.center
+        littleView.layer.cornerRadius = 8.0
+        littleView.clipsToBounds = true
+        
+        usernameField.placeholder = "berkeley.edu account"
+        usernameField.autocapitalizationType = UITextAutocapitalizationType.none
+        usernameField.autocorrectionType = UITextAutocorrectionType.no
+        usernameField.keyboardType = UIKeyboardType.emailAddress
+        
+        passField.placeholder = "Password:"
+        passField.autocapitalizationType = UITextAutocapitalizationType.none
+        passField.autocorrectionType = UITextAutocorrectionType.no
+
+        
+        loginButton.setTitle("Login", for: .normal)
+        loginButton.center.x = view.center.x
+        loginButton.backgroundColor = Constants.backgroundColor
+        loginButton.titleLabel?.textColor = UIColor.white
+        loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        loginButton.layer.cornerRadius = 8.0
+        loginButton.clipsToBounds = true
+        loginButton.addTarget(self, action: #selector(login), for: .touchDown)
         
         // TODO: Add your views either as subviews of `view` or subviews of each other using `addSubview`
         
-        // TODO: layout your views using frames or AutoLayout
+        view.addSubview(label)
+        view.addSubview(littleView)
+        littleView.addSubview(passField)
+        littleView.addSubview(usernameField)
+        littleView.addSubview(loginButton)
+        
     }
     
     // TODO: create an IBAction for your login button
-    
-    
-    
+    @IBAction func login() {
+        let username = usernameField.text
+        let password = passField.text
+        authenticateUser(username: username, password: password)
+    }
     
     
     /// YOU DO NOT NEED TO MODIFY ANY OF THE CODE BELOW (but you will want to use `authenticateUser` at some point)
